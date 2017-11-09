@@ -21,7 +21,7 @@ class App extends React.Component {
     // });
 
     $.ajax({
-      url: 'http://127.0.0.1:1128/repos',
+      url: '/repos',
       type: 'POST',
       data: JSON.stringify({user: term}),
       contentType: 'application/json',

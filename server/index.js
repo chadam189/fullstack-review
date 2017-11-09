@@ -1,12 +1,12 @@
 console.log('WHAT IS UP server/index.js');
 const express = require('express');
 const database = require('./../database/index.js');
+const helpers = require('./../helpers/github.js');
 const CORS = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const Promise = require("bluebird");
 const request = require('request');
-const utils = require('./utils.js');
 const rp = require('request-promise');
 
 let app = express();
@@ -17,9 +17,10 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 
-app.post('/repos', function (req, res) {
-	console.log('req.headers = ', req.headers);
+app.post('/repos', helpers.getReposByUsername, function (req, res) {
 	console.log('req.body = ', req.body);
+
+
 
 	let data = req.body;
 	data.city = 'SF';
