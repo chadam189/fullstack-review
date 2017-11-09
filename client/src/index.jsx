@@ -26,8 +26,7 @@ class App extends React.Component {
       data: JSON.stringify({user: term}),
       contentType: 'application/json',
       success: function( data ) {
-        console.log('data = ', data);
-        console.log(typeof data);
+        console.log(`a ${typeof data} comes back: ${data}`);
       },
       error: function (err) {
         console.log('post req didnt work: ', err);

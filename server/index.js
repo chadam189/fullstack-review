@@ -23,10 +23,22 @@ app.post('/repos', function (req, res) {
 
 	.then((repos) => {
 
-		console.log('my promise worked in the POST request!');
-		console.log('this is what comes back: ', repos);
+		console.log('this is what comes back: ', repos[0].owner.url);
+
+		Promise.resolve(database.save(repos, function (err, results) {
+			console.log('save\'s callback was reached');
+
+		}))
+
 
 	})
+	.then((results) => {
+		// let stuff = repos[0].owner.url;
+		console.log('correcly coming out of database.save');
+		console.log('results = ', results);
+		res.send(results);
+
+	});
 
 
 	// // check if requested username is in DB

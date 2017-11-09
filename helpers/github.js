@@ -20,8 +20,6 @@ let getReposByUsername = (user) => {
 
     rp(options)
       .then(function (repos) {
-        // console.log('repos = ', repos);
-        // console.log('User has %d repos', repos.length);
         resolve(repos);
       })
       .catch(function (error) {

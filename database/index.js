@@ -40,6 +40,8 @@ let Repo = mongoose.model('Repo', repoSchema);
 
 let save = (data, callback) => {
 
+	console.log('save\'s inner function was reached');
+
 	// for (var i = 0; i < data.length; i++) {
 		let obj = {
 	    repo_name: data[0].name,
@@ -51,6 +53,7 @@ let save = (data, callback) => {
 	    owner_id: data[0].owner.id,
 	    owner_pic: data[0].owner.avatar_url
 	   };
+	   console.log('first repo to be stored: ', obj);
 		let newRepo = new Repo(obj);
 		newRepo.save(callback);
 };
