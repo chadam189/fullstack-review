@@ -15,7 +15,40 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+
+    // $.post( '127.0.0.1:1128/', function( data ) {
+    //   console.log('data');
+    // });
+
+    $.ajax({
+      url: 'http://127.0.0.1:1128/repos',
+      type: 'POST',
+      data: JSON.stringify({user: term}),
+      contentType: 'application/json',
+      success: function( data ) {
+        console.log('data = ', data);
+        console.log(typeof data);
+      },
+      error: function (err) {
+        console.log('post req didnt work: ', err);
+      }
+    });
+
+   // $.ajax({
+   //  url: '127.0.0.1:1128/'
+   //  type: 'POST',
+   //  data: {
+   //    'testParam' :'chadam189'
+   //  },
+   //  contentType: 'application/json',
+   //  success: function (data) {
+   //    console.log('data = ', data);
+   //  }, 
+   //  error: function (error) {
+   //    console.error('POST request got an error: ', error);
+   //  }
+
+   //  }); 
   }
 
   render () {
