@@ -13,23 +13,46 @@ let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(CORS());
-app.use(morgan('dev'));
+app.use(morgan('common'));
 app.use(bodyParser.json());
 
 
-app.post('/repos', helpers.getReposByUsername, function (req, res) {
-	console.log('req.body = ', req.body);
+app.post('/repos', function (req, res) {
+
+	Promise.resolve(helpers.getReposByUsername(req.body.user))
+
+	.then((repos) => {
+
+		console.log('my promise worked in the POST request!');
+		console.log('this is what comes back: ', repos);
+
+	})
 
 
+	// // check if requested username is in DB
+ //  Promise.resolve(searchDBforUser(req.body.user))
+ //  .then((userRepos) => {
+ //  	// if user is in DB
+ //  	if (userRepos) {
+ //  	  // skip past upcoming code where we make an API call	
+ //  		throw userRepos;
+ //  	}
+ //    // if user is not in DB, get their info from GitHub
+ //    return helpers.getReposByUsername(req.body.user)
+ //  })
+ //  .catch((userRepos) => {
+ //    return Promise.resolve(userRepos);
+ //  })
+ //  .error((error) => {
+ //    // error handle some shit
+ //  })
+ //  .then((data) => {
+ //  	database.save(data, function (err, results) {
 
-	let data = req.body;
-	data.city = 'SF';
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
-  console.log('POST requests are working!');
-  res.send(data);
+ //  	});
+	//   res.send(data);
+ //  })
+
 });
 
 app.get('/', function (req, res) {
