@@ -8,28 +8,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      repos: []
+      repos: [],
+      top25: []
     }
+
+    this.updateRepos = this.updateRepos.bind(this);
 
   }
 
-  search (term) {
-    console.log(`${term} was searched`);
+  updateRepos (data) {    
+    this.setState({
+      repos: data
+    });
+  }
 
-    // $.post( '127.0.0.1:1128/', function( data ) {
-    //   console.log('data');
-    // });
+  search (term) {
+
+    var context = this;
 
     $.ajax({
       url: '/repos',
       type: 'POST',
       data: JSON.stringify({user: term}),
       contentType: 'application/json',
-      success: function( data ) {
-        console.log(`a ${typeof data} comes back: ${data}`);
+      success: function (data) {
+        context.updateRepos(data);
       },
       error: function (err) {
-        console.log('post req didnt work: ', err);
+        console.log('Post request failed: ', err);
       }
     });
 

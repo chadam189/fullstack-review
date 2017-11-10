@@ -11,8 +11,6 @@ class Search extends React.Component {
   }
 
   onChange (e) {
-    // console.log('something changed in the text box');
-    // console.log('event = ', e.target.value);
     this.setState({
       term: e.target.value
     });
@@ -22,8 +20,6 @@ class Search extends React.Component {
 
   search() {
     this.props.onSearch(this.state.term);
-
-    // console.log('i was clicked!!');
   }
 
   

@@ -13,7 +13,7 @@ let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(CORS());
-app.use(morgan('common'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 
@@ -25,18 +25,11 @@ app.post('/repos', function (req, res) {
 
 		console.log('this is what comes back: ', repos[0].owner.url);
 
-		Promise.resolve(database.save(repos, function (err, results) {
-			console.log('save\'s callback was reached');
-
-		}))
-
-
+		return database.save(repos);
 	})
-	.then((results) => {
-		// let stuff = repos[0].owner.url;
+	.then((repos) => {
 		console.log('correcly coming out of database.save');
-		console.log('results = ', results);
-		res.send(results);
+		res.send(repos);
 
 	});
 
