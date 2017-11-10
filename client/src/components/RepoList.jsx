@@ -10,7 +10,8 @@ class RepoList extends React.Component {
   displayRepo (repo) {
     return (
     	<li className='repo' key={repo.repo_id}>
-        {repo.repo_name}
+        <div className='repotext'><strong>"{repo.repo_name}"</strong> by {repo.owner_name}</div>
+        <img className = 'pics' src={repo.owner_pic} />
       </li>
     );
   }
@@ -22,7 +23,6 @@ class RepoList extends React.Component {
   render () {
 	  return (
 		  <div>
-		    <h4> Repo List Component </h4>
 		    There are {this.props.repos.length} repos.
 		    <div> 
 		      <ul className='repos'>

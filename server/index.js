@@ -29,7 +29,7 @@ app.post('/repos', function (req, res) {
 
 app.get('/repos', function (req, res) {
 
-  Promise.resolve(database.Repo.find((err, data) => {
+  Promise.resolve(database.Repo.find().sort({repo_name: 1}).limit(25).exec((err, data) => {
   	if (err) {
   		console.log('Find call is not working');
   	}
