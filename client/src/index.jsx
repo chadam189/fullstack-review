@@ -16,6 +16,38 @@ class App extends React.Component {
 
   }
 
+  componentDidMount() {
+
+    var context = this;
+
+    $.ajax({
+      url: '/repos',
+      type: 'GET',
+      contentType: 'application/json',
+      success: function (data) {
+        // console.log('THIS IS RESPONSE OF INITIAL GET REQ: ', data.length);
+        // let temp = [];
+        // temp.push({
+        //   "_id" : "5a04d85966ca4942c6a35dc7",
+        //   "repo_name" : "grocery-list-clean-hrsf83",
+        //   "repo_id" : 108800972,
+        //   "repo_description" : "React Grocery List App for Hack Reactor",
+        //   "repo_url" : "https://api.github.com/repos/chadam189/grocery-list-clean-hrsf83",
+        //   "repo_watchers" : 0,
+        //   "owner_name" : "chadam189",
+        //   "owner_id" : 30055253,
+        //   "owner_pic" : "https://avatars1.githubusercontent.com/u/30055253?v=4",
+        //   "__v" : 0
+        // });
+        context.updateRepos(data);
+      },
+      error: function (err) {
+        console.log('Get request failed: ', err);
+      }
+    });
+
+  }
+
   updateRepos (data) {    
     this.setState({
       repos: data
@@ -39,21 +71,6 @@ class App extends React.Component {
       }
     });
 
-   // $.ajax({
-   //  url: '127.0.0.1:1128/'
-   //  type: 'POST',
-   //  data: {
-   //    'testParam' :'chadam189'
-   //  },
-   //  contentType: 'application/json',
-   //  success: function (data) {
-   //    console.log('data = ', data);
-   //  }, 
-   //  error: function (error) {
-   //    console.error('POST request got an error: ', error);
-   //  }
-
-   //  }); 
   }
 
   render () {

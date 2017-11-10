@@ -26,7 +26,6 @@ let Repo = mongoose.model('Repo', repoSchema);
 let save = (data) => {
 
 	var results = [];
-	console.log('save\'s inner function was reached');
 
 	for (var i = 0; i < data.length; i++) {
 		let obj = {
@@ -39,7 +38,6 @@ let save = (data) => {
 	    owner_id: data[i].owner.id,
 	    owner_pic: data[i].owner.avatar_url
 	   };
-	   console.log('this repo got stored: ', obj.repo_name);
 		 let newRepo = new Repo(obj);
 		 results.push(obj);
 		 newRepo.save({});
@@ -48,3 +46,4 @@ let save = (data) => {
 };
 
 module.exports.save = save;
+module.exports.Repo = Repo;

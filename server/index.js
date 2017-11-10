@@ -18,55 +18,29 @@ app.use(bodyParser.json());
 
 
 app.post('/repos', function (req, res) {
-
 	Promise.resolve(helpers.getReposByUsername(req.body.user))
-
 	.then((repos) => {
-
-		console.log('this is what comes back: ', repos[0].owner.url);
-
 		return database.save(repos);
 	})
 	.then((repos) => {
-		console.log('correcly coming out of database.save');
 		res.send(repos);
-
 	});
-
-
-	// // check if requested username is in DB
- //  Promise.resolve(searchDBforUser(req.body.user))
- //  .then((userRepos) => {
- //  	// if user is in DB
- //  	if (userRepos) {
- //  	  // skip past upcoming code where we make an API call	
- //  		throw userRepos;
- //  	}
- //    // if user is not in DB, get their info from GitHub
- //    return helpers.getReposByUsername(req.body.user)
- //  })
- //  .catch((userRepos) => {
- //    return Promise.resolve(userRepos);
- //  })
- //  .error((error) => {
- //    // error handle some shit
- //  })
- //  .then((data) => {
- //  	database.save(data, function (err, results) {
-
- //  	});
-	//   res.send(data);
- //  })
-
 });
 
-app.get('/', function (req, res) {
-	console.log('GET requests are working!');
-  console.log('hello');
-  res.sendStatus(200);
-	res.end('hello');
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+app.get('/repos', function (req, res) {
+
+  Promise.resolve(database.Repo.find((err, data) => {
+  	if (err) {
+  		console.log('Find call is not working');
+  	}
+  	return data;
+  }))
+  .then((results) => {
+  	console.log('find has return this data: ', results.length);
+	  res.json(results.slice(0,25));
+  })
+
+
 });
 
 let port = 1128;
